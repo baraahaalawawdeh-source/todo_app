@@ -11,28 +11,27 @@ class TodoItem {
 enum FilterStatus { all, active, completed }
 
 class TodoProvider extends ChangeNotifier {
-  final List<TodoItem> allItems = [];
-  FilterStatus currentFilter = FilterStatus.all;
+  List<TodoItem> itemsList = [];
+  FilterStatus filterStatus = FilterStatus.all;
   bool isDarkMode = false;
 
   List<TodoItem> get items {
-    switch (currentFilter) {
+    switch (filterStatus) {
       case FilterStatus.active:
-        return allItems.where((t) => !t.isDone).toList();
+        return itemsList.where((t) => !t.isDone).toList();
       case FilterStatus.completed:
-        return allItems.where((t) => t.isDone).toList();
+        return itemsList.where((t) => t.isDone).toList();
       case FilterStatus.all:
-        return allItems;
+        return itemsList;
     }
   }
 
-  int get totalCount => allItems.length;
-  FilterStatus get filter => currentFilter;
+  int get totalCount => itemsList.length;
 
   void addTask(String title) {
     if (title.trim().isEmpty) return;
 
-    allItems.insert(
+    itemsList.insert(
       0,
       TodoItem(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -43,25 +42,25 @@ class TodoProvider extends ChangeNotifier {
   }
 
   void toggleTask(String id) {
-    final index = allItems.indexWhere((t) => t.id == id);
+    final index = itemsList.indexWhere((t) => t.id == id);
     if (index == -1) return;
 
-    allItems[index].isDone = !allItems[index].isDone;
+    itemsList[index].isDone = !itemsList[index].isDone;
     notifyListeners();
   }
 
   void deleteTask(String id) {
-    allItems.removeWhere((t) => t.id == id);
+    itemsList.removeWhere((t) => t.id == id);
     notifyListeners();
   }
 
   void clearCompleted() {
-    allItems.removeWhere((t) => t.isDone);
+    itemsList.removeWhere((t) => t.isDone);
     notifyListeners();
   }
 
   void changeFilter(FilterStatus status) {
-    currentFilter = status;
+    filterStatus = status;
     notifyListeners();
   }
 

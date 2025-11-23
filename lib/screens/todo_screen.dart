@@ -278,7 +278,7 @@ class TodoScreenState extends State<TodoScreen> {
                                           title: 'All',
                                           width: 78.734375,
                                           isSelected:
-                                              todoProvider.filter ==
+                                              todoProvider.filterStatus ==
                                               FilterStatus.all,
                                           onTap: () => todoProvider
                                               .changeFilter(FilterStatus.all),
@@ -287,7 +287,7 @@ class TodoScreenState extends State<TodoScreen> {
                                           title: 'Active',
                                           width: 101.484375,
                                           isSelected:
-                                              todoProvider.filter ==
+                                              todoProvider.filterStatus ==
                                               FilterStatus.active,
                                           onTap: () =>
                                               todoProvider.changeFilter(
@@ -298,7 +298,7 @@ class TodoScreenState extends State<TodoScreen> {
                                           title: 'Completed',
                                           width: 130.578125,
                                           isSelected:
-                                              todoProvider.filter ==
+                                              todoProvider.filterStatus ==
                                               FilterStatus.completed,
                                           onTap: () =>
                                               todoProvider.changeFilter(
